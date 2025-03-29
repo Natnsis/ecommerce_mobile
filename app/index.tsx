@@ -1,6 +1,10 @@
+import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 
 const Index = () => {
+  const router = useRouter();
+
   return (
     <View className="flex-1 bg-gray-100 justify-center items-center px-6">
       {/* Welcome Image */}
@@ -20,11 +24,17 @@ const Index = () => {
 
       {/* Buttons */}
       <View className="mt-8 w-full">
-        <TouchableOpacity className="bg-primary py-4 rounded-lg shadow-md mb-4">
-          <Text className="text-white text-center font-bold text-lg">Shop Now</Text>
+        <TouchableOpacity
+          className="bg-primary py-4 rounded-lg shadow-md mb-4"
+          onPress={() => router.push('/login')}
+        >
+          <Text className="text-white text-center font-bold text-lg">Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity className="bg-gray-200 py-4 rounded-lg shadow-md">
-          <Text className="text-gray-800 text-center font-bold text-lg">Sign In</Text>
+        <TouchableOpacity
+          className="bg-gray-200 py-4 rounded-lg shadow-md"
+          onPress={() => router.push('/register')}
+        >
+          <Text className="text-gray-800 text-center font-bold text-lg">Register</Text>
         </TouchableOpacity>
       </View>
     </View>
