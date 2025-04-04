@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const Login = () => {
@@ -7,11 +7,37 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Add your login logic here
-    console.log('Username:', username);
-    console.log('Password:', password);
-    router.push('/home'); // Navigate to the home page after login
+  const handleLogin = async () => {
+    try {
+      // Send login request to the server
+      const response = await fetch('http://10.16.202.144:3001/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Login successful, navigate to the home page
+        Alert.alert('Success', 'Login successful!');
+        router.push('/home');
+      } else if (response.status === 404) {
+        // User not found
+        Alert.alert('Error', 'User not found. Please check your username.');
+      } else if (response.status === 401) {
+        // Invalid credentials
+        Alert.alert('Error', 'Invalid username or password.');
+      } else {
+        // Other errors
+        Alert.alert('Error', data.error || 'An unexpected error occurred.');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      Alert.alert('Error', 'Unable to connect to the server. Please try again later.');
+    }
   };
 
   return (

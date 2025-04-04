@@ -1,18 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 
 const AccountTab = () => {
-  const [username, setUsername] = useState('current_username'); // Replace with actual username
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleSaveChanges = () => {
+  useEffect(() => {
+    // Fetch current username from the backend
+    const fetchUserDetails = async () => {
+      try {
+        const response = await fetch('http://10.16.202.144:3001/api/customers', {
+          method: 'GET',
+          credentials: 'include', // Include session cookies
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch user details');
+        }
+
+        const data = await response.json();
+        setUsername(data.username); // Set the current username
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+        Alert.alert('Error', 'Unable to fetch user details. Please try again later.');
+      }
+    };
+
+    fetchUserDetails();
+  }, []);
+
+  const handleSaveChanges = async () => {
     if (!username || !password) {
       Alert.alert('Error', 'Please fill out all fields before saving.');
       return;
     }
-    Alert.alert('Success', 'Your account details have been updated.');
-    setIsEditing(false);
+
+    try {
+      const response = await fetch('http://10.16.202.144:3001/api/customers', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+        credentials: 'include', // Include session cookies
+      });
+
+      if (response.ok) {
+        Alert.alert('Success', 'Your account details have been updated.');
+        setIsEditing(false);
+        setPassword(''); // Clear password field after saving
+      } else {
+        const data = await response.json();
+        Alert.alert('Error', data.error || 'Failed to update account details.');
+      }
+    } catch (error) {
+      console.error('Error updating account details:', error);
+      Alert.alert('Error', 'Unable to connect to the server. Please try again later.');
+    }
   };
 
   const handleCancel = () => {
@@ -21,57 +66,87 @@ const AccountTab = () => {
   };
 
   return (
-    <View className="flex-1 bg-gray-100 px-6 py-8">
+    <View style={{ flex: 1, backgroundColor: '#f9f9f9', padding: 16 }}>
       {/* Title */}
-      <Text className="text-3xl font-extrabold text-primary text-center mb-6">Account</Text>
+      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>
+        Account Settings
+      </Text>
 
       {/* Username Field */}
-      <Text className="text-lg font-medium text-gray-700 mb-2">Username</Text>
+      <Text style={{ fontSize: 16, fontWeight: '600', marginBottom: 8 }}>Username</Text>
       <TextInput
         placeholder="Enter your username"
         value={username}
         onChangeText={setUsername}
         editable={isEditing}
-        className={`w-full bg-white p-4 rounded-lg shadow-md mb-4 ${
-          isEditing ? 'text-gray-800' : 'text-gray-400'
-        }`}
+        style={{
+          backgroundColor: isEditing ? '#fff' : '#f0f0f0',
+          padding: 12,
+          borderRadius: 8,
+          borderWidth: 1,
+          borderColor: '#ddd',
+          marginBottom: 16,
+          color: isEditing ? '#000' : '#aaa',
+        }}
       />
 
       {/* Password Field */}
-      <Text className="text-lg font-medium text-gray-700 mb-2">Password</Text>
+      <Text style={{ fontSize: 16, fontWeight: '600', marginBottom: 8 }}>Password</Text>
       <TextInput
         placeholder="Enter your new password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
         editable={isEditing}
-        className={`w-full bg-white p-4 rounded-lg shadow-md mb-6 ${
-          isEditing ? 'text-gray-800' : 'text-gray-400'
-        }`}
+        style={{
+          backgroundColor: isEditing ? '#fff' : '#f0f0f0',
+          padding: 12,
+          borderRadius: 8,
+          borderWidth: 1,
+          borderColor: '#ddd',
+          marginBottom: 24,
+          color: isEditing ? '#000' : '#aaa',
+        }}
       />
 
       {/* Buttons */}
       {isEditing ? (
-        <View className="flex-row justify-between">
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity
             onPress={handleSaveChanges}
-            className="bg-primary py-4 px-6 rounded-lg shadow-md flex-1 mr-2"
+            style={{
+              backgroundColor: '#4CAF50',
+              padding: 16,
+              borderRadius: 8,
+              flex: 1,
+              marginRight: 8,
+            }}
           >
-            <Text className="text-white text-center font-bold text-lg">Save</Text>
+            <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>Save</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleCancel}
-            className="bg-gray-400 py-4 px-6 rounded-lg shadow-md flex-1 ml-2"
+            style={{
+              backgroundColor: '#ccc',
+              padding: 16,
+              borderRadius: 8,
+              flex: 1,
+              marginLeft: 8,
+            }}
           >
-            <Text className="text-white text-center font-bold text-lg">Cancel</Text>
+            <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>Cancel</Text>
           </TouchableOpacity>
         </View>
       ) : (
         <TouchableOpacity
           onPress={() => setIsEditing(true)}
-          className="bg-primary py-4 rounded-lg shadow-md"
+          style={{
+            backgroundColor: '#4CAF50',
+            padding: 16,
+            borderRadius: 8,
+          }}
         >
-          <Text className="text-white text-center font-bold text-lg">Edit Account</Text>
+          <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>Edit Account</Text>
         </TouchableOpacity>
       )}
     </View>

@@ -1,24 +1,50 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const Register = () => {
   const router = useRouter();
   const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [image, setImage] = useState('');
 
-  const handleRegister = () => {
-    // Add your registration logic here
+  const handleRegister = async () => {
     if (password !== confirmPassword) {
-      alert('Passwords do not match!');
+      Alert.alert('Error', 'Passwords do not match!');
       return;
     }
-    console.log('Full Name:', fullName);
-    console.log('Username:', username);
-    console.log('Password:', password);
-    router.push('/login'); // Navigate to the login page after registration
+
+    try {
+      // Send registration data to the server
+      const response = await fetch('http://10.16.202.144:3001/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName,
+          username,
+          email,
+          password,
+          image,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Alert.alert('Success', 'Registration successful!');
+        router.push('/login'); // Navigate to the login page after successful registration
+      } else {
+        Alert.alert('Error', data.error || 'An unexpected error occurred.');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      Alert.alert('Error', 'Unable to connect to the server. Please try again later.');
+    }
   };
 
   return (
@@ -41,6 +67,15 @@ const Register = () => {
         className="w-full bg-white p-4 rounded-lg shadow-md mb-4"
       />
 
+      {/* Email Input */}
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        className="w-full bg-white p-4 rounded-lg shadow-md mb-4"
+      />
+
       {/* Password Input */}
       <TextInput
         placeholder="Password"
@@ -56,6 +91,14 @@ const Register = () => {
         value={confirmPassword}
         onChangeText={setConfirmPassword}
         secureTextEntry
+        className="w-full bg-white p-4 rounded-lg shadow-md mb-4"
+      />
+
+      {/* Image URL Input */}
+      <TextInput
+        placeholder="Image URL"
+        value={image}
+        onChangeText={setImage}
         className="w-full bg-white p-4 rounded-lg shadow-md mb-6"
       />
 

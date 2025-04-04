@@ -1,132 +1,186 @@
-import React, { useState } from 'react';
-import { View, Text, Image, FlatList, ScrollView, TextInput, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, FlatList, Alert, TouchableOpacity, Linking, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 
-const HomeTab = () => {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+const HomePage = () => {
+  const router = useRouter();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const feedbacks = [
-    { id: '1', name: 'John Doe', feedback: 'Amazing service! Fast delivery and great products.' },
-    { id: '2', name: 'Jane Smith', feedback: 'I love shopping here. The prices are unbeatable!' },
-    { id: '3', name: 'Michael Brown', feedback: 'Great customer support and quality items.' },
-  ];
-
-  const mostBoughtProducts = [
-    {
-      id: '1',
-      name: 'Smartphone',
-      price: '$100',
-      image: 'https://via.placeholder.com/150', // Replace with actual image URLs
-    },
-    {
-      id: '2',
-      name: 'T-Shirt',
-      price: '$50',
-      image: 'https://via.placeholder.com/150', // Replace with actual image URLs
-    },
-    {
-      id: '3',
-      name: 'Microwave Oven',
-      price: '$200',
-      image: 'https://via.placeholder.com/150', // Replace with actual image URLs
-    },
-  ];
-
-  const handleSendMessage = () => {
-    if (!email || !message) {
-      Alert.alert('Error', 'Please fill out both fields before sending your message.');
-      return;
+  // Fetch products from the backend
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('http://10.16.202.144:3001/api/products');
+      if (!response.ok) {
+        throw new Error('Failed to fetch products');
+      }
+      const data = await response.json();
+      if (data.length === 0) {
+        Alert.alert('No Products', 'No products available at the moment.');
+      }
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      Alert.alert('Error', 'Unable to fetch products. Please try again later.');
+    } finally {
+      setLoading(false);
     }
-    Alert.alert('Thank You!', 'Your message has been sent.');
-    setEmail('');
-    setMessage('');
   };
+
+  // Add product to cart
+  const addToCart = async (productId) => {
+    try {
+      const response = await fetch('http://10.16.202.144:3001/api/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId }),
+      });
+
+      if (response.ok) {
+        Alert.alert('Success', 'Product added to cart!');
+      } else {
+        const data = await response.json();
+        Alert.alert('Error', data.error || 'Failed to add product to cart.');
+      }
+    } catch (error) {
+      console.error('Add to cart error:', error);
+      Alert.alert('Error', 'Unable to connect to the server. Please try again later.');
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const renderProduct = ({ item }) => {
+    if (!item.pname || !item.price || !item.image) {
+      return null; // Skip rendering if required fields are missing
+    }
+
+    return (
+      <View
+        className="bg-white p-4 rounded-lg shadow-md m-2"
+        style={{
+          flex: 1,
+          maxWidth: '45%',
+          borderWidth: 1,
+          borderColor: '#ddd',
+          borderRadius: 10,
+        }}
+      >
+        <Image
+          source={{ uri: `http://10.16.202.144:3001/uploads/${item.image}` }}
+          style={{
+            width: '100%',
+            height: 120,
+            borderRadius: 8,
+            marginBottom: 8,
+          }}
+          resizeMode="cover"
+        />
+        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333', marginBottom: 4 }}>
+          {item.pname}
+        </Text>
+        <Text style={{ fontSize: 14, color: '#555', marginBottom: 8 }}>${item.price}</Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#4CAF50',
+            paddingVertical: 8,
+            borderRadius: 5,
+          }}
+          onPress={() => addToCart(item.pid)}
+        >
+          <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>Add to Cart</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  if (loading) {
+    return (
+      <View className="flex-1 justify-center items-center bg-gray-100">
+        <Text className="text-lg text-gray-600">Loading products...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView className="flex-1 bg-gray-100 px-4 py-6">
       {/* Welcome Section */}
-      <View className="items-center mb-6">
-        <Image
-          source={require('../../assets/images/assosa.jpg')} // Replace with your actual image
-          className="w-full h-40 rounded-lg mb-4"
-          resizeMode="cover"
-        />
-        <Text className="text-3xl font-extrabold text-primary text-center mb-2">
-          Welcome to Assosa E-Commerce
+      <View style={{ marginBottom: 20 }}>
+        <Text style={{ fontSize: 28, fontWeight: 'bold', color: '#4CAF50', textAlign: 'center' }}>
+          Welcome to Our Store!
         </Text>
-        <Text className="text-lg text-gray-600 text-center">
-          Discover the best products and services in Assosa city. Shop from the comfort of your
-          home and enjoy fast delivery and excellent customer service.
+        <Text style={{ fontSize: 16, color: '#555', textAlign: 'center', marginTop: 10 }}>
+          Discover the best products at unbeatable prices. Browse through our collection and find
+          what you need today!
         </Text>
       </View>
 
-      {/* Positive Feedback Section */}
-      <View className="mb-6">
-        <Text className="text-2xl font-bold text-primary mb-4">What Our Customers Say</Text>
-        <FlatList
-          data={feedbacks}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View className="bg-white p-4 rounded-lg shadow-md mb-4">
-              <Text className="text-lg font-bold text-gray-800">{item.name}</Text>
-              <Text className="text-gray-600">{item.feedback}</Text>
-            </View>
-          )}
-        />
-      </View>
+      {/* Product List */}
+      <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#333', marginBottom: 10 }}>
+        Products
+      </Text>
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.pid.toString()}
+        renderItem={renderProduct}
+        numColumns={2}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
+        showsVerticalScrollIndicator={false}
+      />
 
-      {/* Most Bought Products Section */}
-      <View className="mb-6">
-        <Text className="text-2xl font-bold text-primary mb-4">Most Bought Products</Text>
-        <FlatList
-          data={mostBoughtProducts}
-          keyExtractor={(item) => item.id}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <View className="bg-white p-4 rounded-lg shadow-md mr-4">
-              <Image
-                source={{ uri: item.image }}
-                className="w-32 h-32 rounded-lg mb-2"
-                resizeMode="cover"
-              />
-              <Text className="text-lg font-bold text-gray-800">{item.name}</Text>
-              <Text className="text-primary font-bold">{item.price}</Text>
-            </View>
-          )}
-        />
-      </View>
-
-      {/* Contact Us Section */}
-      <View className="mb-6">
-        <Text className="text-2xl font-bold text-primary mb-4">Contact Us</Text>
-        {/* Email Input */}
-        <TextInput
-          placeholder="Your Email Address"
-          value={email}
-          onChangeText={setEmail}
-          className="w-full bg-white p-4 rounded-lg shadow-md mb-4"
-        />
-        {/* Message Text Area */}
-        <TextInput
-          placeholder="Write your message here..."
-          value={message}
-          onChangeText={setMessage}
-          multiline
-          numberOfLines={6}
-          className="w-full bg-white p-4 rounded-lg shadow-md mb-4"
-          style={{ textAlignVertical: 'top', height: 120 }}
-        />
-        {/* Send Message Button */}
-        <TouchableOpacity
-          onPress={handleSendMessage}
-          className="bg-primary py-4 rounded-lg shadow-md"
+      {/* Contact Creators Section */}
+      <View style={{ marginTop: 30, padding: 20, backgroundColor: '#f9f9f9', borderRadius: 10 }}>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#333', textAlign: 'center' }}>
+          Contact the Creators
+        </Text>
+        <Text style={{ fontSize: 14, color: '#555', textAlign: 'center', marginTop: 10 }}>
+          Have questions or feedback? Reach out to us on our social platforms!
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 20,
+          }}
         >
-          <Text className="text-white text-center font-bold text-lg">Send Message</Text>
-        </TouchableOpacity>
+          {/* GitHub */}
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://github.com/your-profile')}
+            style={{ marginHorizontal: 10 }}
+          >
+            <Image
+              source={{ uri: 'https://cdn-icons-png.flaticon.com/512/25/25231.png' }}
+              style={{ width: 40, height: 40 }}
+            />
+          </TouchableOpacity>
+          {/* LinkedIn */}
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://linkedin.com/in/your-profile')}
+            style={{ marginHorizontal: 10 }}
+          >
+            <Image
+              source={{ uri: 'https://cdn-icons-png.flaticon.com/512/174/174857.png' }}
+              style={{ width: 40, height: 40 }}
+            />
+          </TouchableOpacity>
+          {/* Twitter */}
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://twitter.com/your-profile')}
+            style={{ marginHorizontal: 10 }}
+          >
+            <Image
+              source={{ uri: 'https://cdn-icons-png.flaticon.com/512/733/733579.png' }}
+              style={{ width: 40, height: 40 }}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
 };
 
-export default HomeTab;
+export default HomePage;

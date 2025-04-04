@@ -1,18 +1,21 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const Index = () => {
   const router = useRouter();
 
   return (
-    <View className="flex-1 bg-gray-100 justify-center items-center px-6">
+    <ScrollView className="flex-1 bg-gray-100 px-6">
       {/* Welcome Image */}
-      <Image
-        source={require('../assets/images/assosa.jpg')}
-        className="w-3/4 h-40 mb-6 rounded-lg shadow-md"
-        resizeMode="cover"
-      />
+      <View className="justify-center items-center mt-8">
+        <Image
+          source={require('./../assets/images/assosa.jpg')}
+          alt="Welcome Image"
+          className="w-3/4 h-40 mb-6 rounded-lg shadow-md"
+          resizeMode="cover"
+        />
+      </View>
 
       {/* Welcome Text */}
       <Text className="text-4xl font-extrabold text-primary text-center">
@@ -22,22 +25,53 @@ const Index = () => {
         Discover and shop for your favorite products from the comfort of your home.
       </Text>
 
-      {/* Buttons */}
-      <View className="mt-8 w-full">
+      {/* Descriptions */}
+      <Text className="text-lg text-gray-800 mt-8 font-semibold">
+        Why Shop With Us?
+      </Text>
+      <Text className="text-gray-600 mt-2">
+        - Wide variety of products to choose from.
+      </Text>
+      <Text className="text-gray-600 mt-1">
+        - Affordable prices and great deals.
+      </Text>
+      <Text className="text-gray-600 mt-1">
+        - Fast and reliable delivery services.
+      </Text>
+
+      {/* Cards Section */}
+      <View className="mt-8">
+        <Text className="text-lg font-semibold text-gray-800 mb-4">Featured Categories</Text>
+        <View className="flex-row justify-between">
+          <View className="bg-white rounded-lg shadow-md p-4 w-[48%]">
+            <Image
+              source={require('./../assets/images/icon.png')}
+              className="w-full h-20 rounded-md mb-2"
+              resizeMode="cover"
+            />
+            <Text className="text-center font-bold text-gray-800">Electronics</Text>
+          </View>
+          <View className="bg-white rounded-lg shadow-md p-4 w-[48%]">
+            <Image
+              source={require('./../assets/images/logo.jpg')}
+              className="w-full h-20 rounded-md mb-2"
+              resizeMode="cover"
+            />
+            <Text className="text-center font-bold text-gray-800">Fashion</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Get Started Button */}
+      <View className="mt-12">
         <TouchableOpacity
-          className="bg-primary py-4 rounded-lg shadow-md mb-4"
+          className="bg-primary py-4 rounded-lg shadow-md"
           onPress={() => router.push('/login')}
         >
-          <Text className="text-white text-center font-bold text-lg">Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          className="bg-gray-200 py-4 rounded-lg shadow-md"
-          onPress={() => router.push('/register')}
-        >
-          <Text className="text-gray-800 text-center font-bold text-lg">Register</Text>
+          <Text className="text-white text-center font-bold text-lg">Get Started</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

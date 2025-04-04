@@ -1,32 +1,44 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Image, Alert } from 'react-native';
 
 const CartTab = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: '1',
-      name: 'Smartphone',
-      price: 100,
-      status: 'Not Paid',
-      image: 'https://via.placeholder.com/150', // Replace with actual image URLs
-    },
-    {
-      id: '2',
-      name: 'T-Shirt',
-      price: 50,
-      status: 'Not Paid',
-      image: 'https://via.placeholder.com/150', // Replace with actual image URLs
-    },
-  ]);
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Handle payment status
-  const handlePayNow = (id) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, status: 'Paid' } : item
-      )
-    );
+  // Fetch cart items for the specific user
+  const fetchCartItems = async () => {
+    try {
+      const response = await fetch('http://10.16.202.144:3001/api/cart', {
+        method: 'GET',
+        credentials: 'include', // Include cookies to identify the user session
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch cart items');
+      }
+
+      const data = await response.json();
+      console.log('Fetched cart items:', data.cartItems); // Debug log
+      setCartItems(data.cartItems);
+    } catch (error) {
+      console.error('Error fetching cart items:', error);
+      Alert.alert('Error', 'Unable to fetch cart items. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
+
+  if (loading) {
+    return (
+      <View className="flex-1 justify-center items-center bg-gray-100">
+        <Text className="text-lg text-gray-600">Loading cart items...</Text>
+      </View>
+    );
+  }
 
   return (
     <View className="flex-1 bg-gray-100 px-4 py-6">
@@ -36,40 +48,24 @@ const CartTab = () => {
       {/* Cart Items */}
       <FlatList
         data={cartItems}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View className="bg-white p-4 rounded-lg shadow-md mb-4">
             {/* Product Details */}
             <View className="flex-row items-center">
               {/* Product Image */}
               <Image
-                source={{ uri: item.image }}
+                source={{ uri: `http://10.16.202.144:3001/uploads/${item.image}` }}
                 className="w-20 h-20 rounded-lg mr-4"
                 resizeMode="cover"
               />
               {/* Product Info */}
               <View className="flex-1">
-                <Text className="text-lg font-bold text-gray-800">{item.name}</Text>
+                <Text className="text-lg font-bold text-gray-800">{item.pname}</Text>
                 <Text className="text-primary font-bold">${item.price}</Text>
-                <Text
-                  className={`text-sm font-medium ${
-                    item.status === 'Paid' ? 'text-green-500' : 'text-red-500'
-                  }`}
-                >
-                  {item.status}
-                </Text>
+                <Text className="text-sm text-gray-600">Quantity: {item.quantity}</Text>
               </View>
             </View>
-
-            {/* Pay Now Button */}
-            {item.status === 'Not Paid' && (
-              <TouchableOpacity
-                onPress={() => handlePayNow(item.id)}
-                className="bg-primary py-2 px-4 rounded-lg mt-4"
-              >
-                <Text className="text-white text-center font-bold">Pay Now</Text>
-              </TouchableOpacity>
-            )}
           </View>
         )}
         ListEmptyComponent={
