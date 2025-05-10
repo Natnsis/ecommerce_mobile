@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
+import React from "react";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { useRouter } from "expo-router";
 
 const Index = () => {
   const router = useRouter();
@@ -10,7 +10,7 @@ const Index = () => {
       {/* Welcome Image */}
       <View className="justify-center items-center mt-8">
         <Image
-          source={require('./../assets/images/assosa.jpg')}
+          source={require("./../assets/images/assosa.jpg")}
           alt="Welcome Image"
           className="w-3/4 h-40 mb-6 rounded-lg shadow-md"
           resizeMode="cover"
@@ -22,7 +22,8 @@ const Index = () => {
         Welcome to Assosa E-Commerce
       </Text>
       <Text className="text-lg text-gray-600 text-center mt-4 font-medium">
-        Discover and shop for your favorite products from the comfort of your home.
+        Discover and shop for your favorite products from the comfort of your
+        home.
       </Text>
 
       {/* Descriptions */}
@@ -41,19 +42,23 @@ const Index = () => {
 
       {/* Cards Section */}
       <View className="mt-8">
-        <Text className="text-lg font-semibold text-gray-800 mb-4">Featured Categories</Text>
+        <Text className="text-lg font-semibold text-gray-800 mb-4">
+          Featured Categories
+        </Text>
         <View className="flex-row justify-between">
           <View className="bg-white rounded-lg shadow-md p-4 w-[48%]">
             <Image
-              source={require('./../assets/images/icon.png')}
+              source={require("./../assets/images/icon.png")}
               className="w-full h-20 rounded-md mb-2"
               resizeMode="cover"
             />
-            <Text className="text-center font-bold text-gray-800">Electronics</Text>
+            <Text className="text-center font-bold text-gray-800">
+              Electronics
+            </Text>
           </View>
           <View className="bg-white rounded-lg shadow-md p-4 w-[48%]">
             <Image
-              source={require('./../assets/images/logo.jpg')}
+              source={require("./../assets/images/logo.jpg")}
               className="w-full h-20 rounded-md mb-2"
               resizeMode="cover"
             />
@@ -66,9 +71,11 @@ const Index = () => {
       <View className="mt-12">
         <TouchableOpacity
           className="bg-primary py-4 rounded-lg shadow-md"
-          onPress={() => router.push('/login')}
+          onPress={() => router.push("/login")}
         >
-          <Text className="text-white text-center font-bold text-lg">Get Started</Text>
+          <Text className="text-white text-center font-bold text-lg">
+            Get Started
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
