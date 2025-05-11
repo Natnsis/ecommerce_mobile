@@ -6,20 +6,10 @@ const SearchTab = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Dynamically determine the backend URL
-  const getBackendUrl = () => {
-    if (__DEV__) {
-      return "http://localhost:3001";
-    }
-    return "http://10.16.202.144";
-  };
-
-  const backendUrl = getBackendUrl();
-
   // Fetch products from the backend
   const fetchProducts = async () => {
     try {
-      const response = await fetch(`${backendUrl}/api/products`, {
+      const response = await fetch("http://10.16.203.90/api/products", {
         method: "GET",
       });
 
@@ -39,7 +29,28 @@ const SearchTab = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, [backendUrl]);
+  }, []);
+
+  const getImageSource = (category: string) => {
+    switch (category.toLowerCase()) {
+      case "accessories":
+        return require("./../../assets/images/Accessories.jpg");
+      case "cloths":
+        return require("./../../assets/images/cloths.jpg");
+      case "detergents":
+        return require("./../../assets/images/detergentsImg.jpg");
+      case "electronics":
+        return require("./../../assets/images/electronicss.jpg");
+      case "food":
+        return require("./../../assets/images/foodImg.jpg");
+      case "luxury":
+        return require("./../../assets/images/luxurys.jpg");
+      case "tools":
+        return require("./../../assets/images/toolss.jpg");
+      default:
+        return require("./../../assets/images/assosa.jpg"); // Default image
+    }
+  };
 
   // Filter products based on search query
   const filteredProducts = products.filter((product) =>
@@ -77,11 +88,8 @@ const SearchTab = () => {
         keyExtractor={(item) => item.pid.toString()}
         renderItem={({ item }) => (
           <View className="bg-white p-4 rounded-lg shadow-md mb-4 flex-row items-center">
-            {/* Product Image */}
             <Image
-              source={{
-                uri: `${backendUrl}/uploads/${item.image}`,
-              }}
+              source={getImageSource(item.category)}
               className="w-20 h-20 rounded-lg mr-4"
               resizeMode="cover"
             />

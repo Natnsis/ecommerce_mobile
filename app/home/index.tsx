@@ -14,7 +14,6 @@ const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch products from the backend
   const fetchProducts = async () => {
     try {
       const response = await fetch("http://10.16.203.90:3001/api/products");
@@ -60,22 +59,21 @@ const HomePage = () => {
     }
   };
 
-  // Function to get the image source based on the category
   const getImageSource = (category: string) => {
     switch (category.toLowerCase()) {
-      case "Accessories":
+      case "accessories":
         return require("./../../assets/images/Accessories.jpg");
-      case "Cloths":
+      case "cloths":
         return require("./../../assets/images/cloths.jpg");
-      case "Detergents":
+      case "detergents":
         return require("./../../assets/images/detergentsImg.jpg");
-      case "Electronics":
+      case "electronics":
         return require("./../../assets/images/electronicss.jpg");
       case "food":
         return require("./../../assets/images/foodImg.jpg");
-      case "Luxury":
+      case "luxury":
         return require("./../../assets/images/luxurys.jpg");
-      case "Tools":
+      case "tools":
         return require("./../../assets/images/toolss.jpg");
       default:
         return require("./../../assets/images/assosa.jpg"); // Default image
