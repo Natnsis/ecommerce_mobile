@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import { useRouter } from "expo-router";
+import { Button, ButtonText } from "@/components/ui/button";
 
 const Register = () => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const Register = () => {
 
     try {
       // Send registration data to the server
-      const response = await fetch("http://10.16.202.144:3001/api/register", {
+      const response = await fetch("http://10.16.203.90:3001/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,22 +108,21 @@ const Register = () => {
         className="w-full bg-white p-4 rounded-lg shadow-md mb-6"
       />
 
-      {/* Register Button */}
-      <TouchableOpacity
-        className="bg-primary py-4 rounded-lg shadow-md w-full mb-4"
+      <Button
         onPress={handleRegister}
+        variant="solid"
+        className="w-full mb-5"
+        size="lg"
       >
-        <Text className="text-white text-center font-bold text-lg">
-          Register
-        </Text>
-      </TouchableOpacity>
+        <ButtonText>Login</ButtonText>
+      </Button>
 
-      {/* Login Link */}
-      <TouchableOpacity onPress={() => router.push("/login")}>
-        <Text className="text-primary font-medium">
-          Already have an account? <Text className="underline">Login</Text>
-        </Text>
-      </TouchableOpacity>
+      <View className="w-full flex-row items-center ">
+        <Text className="min-w-60 ">Already have an account?</Text>
+        <Button onPress={() => router.push("/login")} variant="link">
+          <ButtonText>Login</ButtonText>
+        </Button>
+      </View>
     </View>
   );
 };

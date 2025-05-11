@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import { useRouter } from "expo-router";
+import { Heading } from "@/components/ui/heading";
+import { Image } from "@/components/ui/image";
+import { Button, ButtonText } from "@/components/ui/button";
 
 const Login = () => {
   const router = useRouter();
@@ -10,7 +13,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       // Send login request to the server
-      const response = await fetch("http://10.16.202.144:3001/api/login", {
+      const response = await fetch("http://10.16.203.90:3001/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,17 +24,13 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Login successful, navigate to the home page
         Alert.alert("Success", "Login successful!");
         router.push("/home");
       } else if (response.status === 404) {
-        // User not found
         Alert.alert("Error", "User not found. Please check your username.");
       } else if (response.status === 401) {
-        // Invalid credentials
         Alert.alert("Error", "Invalid username or password.");
       } else {
-        // Other errors
         Alert.alert("Error", data.error || "An unexpected error occurred.");
       }
     } catch (error) {
@@ -44,10 +43,17 @@ const Login = () => {
   };
 
   return (
-    <View className="flex-1 bg-gray-100 justify-center items-center px-6">
-      <Text className="text-3xl font-extrabold text-primary mb-6">Login</Text>
+    <View className="pt-10 bg-gray-100 justify-center items-center px-6">
+      <Image
+        source={require("./../assets/images/welcomer.jpg")}
+        alt="Welcome Image"
+        className="w-full h-52 mb-6 rounded-lg shadow-md"
+        resizeMode="cover"
+      />
+      <Heading size="3xl" className="mb-5">
+        Login
+      </Heading>
 
-      {/* Username Input */}
       <TextInput
         placeholder="Username"
         value={username}
@@ -55,7 +61,6 @@ const Login = () => {
         className="w-full bg-white p-4 rounded-lg shadow-md mb-4"
       />
 
-      {/* Password Input */}
       <TextInput
         placeholder="Password"
         value={password}
@@ -64,20 +69,21 @@ const Login = () => {
         className="w-full bg-white p-4 rounded-lg shadow-md mb-6"
       />
 
-      {/* Login Button */}
-      <TouchableOpacity
-        className="bg-primary py-4 rounded-lg shadow-md w-full mb-4"
+      <Button
         onPress={handleLogin}
+        variant="solid"
+        className="w-full mb-5"
+        size="lg"
       >
-        <Text className="text-white text-center font-bold text-lg">Login</Text>
-      </TouchableOpacity>
+        <ButtonText>Login</ButtonText>
+      </Button>
 
-      {/* Register Link */}
-      <TouchableOpacity onPress={() => router.push("/register")}>
-        <Text className="text-primary font-medium">
-          Don't have an account? <Text className="underline">Register</Text>
-        </Text>
-      </TouchableOpacity>
+      <View className="w-full flex-row items-center ">
+        <Text className="min-w-60 ">Dont have an Account?</Text>
+        <Button onPress={() => router.push("/register")} variant="link">
+          <ButtonText>Register</ButtonText>
+        </Button>
+      </View>
     </View>
   );
 };

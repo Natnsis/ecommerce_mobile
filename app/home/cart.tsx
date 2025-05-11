@@ -5,10 +5,20 @@ const CartTab = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Dynamically determine the backend URL
+  const getBackendUrl = () => {
+    if (__DEV__) {
+      return "http://localhost:3001"; // Use localhost for development
+    }
+    return "http://10.16.202.144"; // Replace with your production IP
+  };
+
+  const backendUrl = getBackendUrl();
+
   // Fetch cart items for the specific user
   const fetchCartItems = async () => {
     try {
-      const response = await fetch("http://10.16.202.144:3001/api/cart", {
+      const response = await fetch(`${backendUrl}/api/cart`, {
         method: "GET",
         credentials: "include", // Include cookies to identify the user session
       });
@@ -61,7 +71,7 @@ const CartTab = () => {
               {/* Product Image */}
               <Image
                 source={{
-                  uri: `http://10.16.202.144:3001/uploads/${item.image}`,
+                  uri: `${backendUrl}/uploads/${item.image}`,
                 }}
                 className="w-20 h-20 rounded-lg mr-4"
                 resizeMode="cover"

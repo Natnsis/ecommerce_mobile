@@ -6,17 +6,24 @@ const AccountTab = () => {
   const [password, setPassword] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
+  // Dynamically determine the backend URL
+  const getBackendUrl = () => {
+    if (__DEV__) {
+      return "http://localhost:3001"; // Use localhost for development
+    }
+    return "http://10.16.202.144"; // Replace with your production IP
+  };
+
+  const backendUrl = getBackendUrl();
+
   useEffect(() => {
     // Fetch current username from the backend
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(
-          "http://10.16.202.144:3001/api/customers",
-          {
-            method: "GET",
-            credentials: "include", // Include session cookies
-          }
-        );
+        const response = await fetch(`${backendUrl}/api/customers`, {
+          method: "GET",
+          credentials: "include", // Include session cookies
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch user details");
@@ -34,7 +41,7 @@ const AccountTab = () => {
     };
 
     fetchUserDetails();
-  }, []);
+  }, [backendUrl]);
 
   const handleSaveChanges = async () => {
     if (!username || !password) {
@@ -43,7 +50,7 @@ const AccountTab = () => {
     }
 
     try {
-      const response = await fetch("http://10.16.202.144:3001/api/customers", {
+      const response = await fetch(`${backendUrl}/api/customers`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

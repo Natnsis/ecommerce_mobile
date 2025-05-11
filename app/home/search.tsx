@@ -6,10 +6,20 @@ const SearchTab = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Dynamically determine the backend URL
+  const getBackendUrl = () => {
+    if (__DEV__) {
+      return "http://localhost:3001";
+    }
+    return "http://10.16.202.144";
+  };
+
+  const backendUrl = getBackendUrl();
+
   // Fetch products from the backend
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://10.16.202.144:3001/api/products", {
+      const response = await fetch(`${backendUrl}/api/products`, {
         method: "GET",
       });
 
@@ -29,7 +39,7 @@ const SearchTab = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [backendUrl]);
 
   // Filter products based on search query
   const filteredProducts = products.filter((product) =>
@@ -70,7 +80,7 @@ const SearchTab = () => {
             {/* Product Image */}
             <Image
               source={{
-                uri: `http://10.16.202.144:3001/uploads/${item.image}`,
+                uri: `${backendUrl}/uploads/${item.image}`,
               }}
               className="w-20 h-20 rounded-lg mr-4"
               resizeMode="cover"

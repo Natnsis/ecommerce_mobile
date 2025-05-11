@@ -1,83 +1,144 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
+import { Button, ButtonText } from "@/components/ui/button";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { Card } from "@/components/ui/card";
+import { Image } from "@/components/ui/image";
 
 const Index = () => {
   const router = useRouter();
 
   return (
-    <ScrollView className="flex-1 bg-gray-100 px-6">
-      {/* Welcome Image */}
+    <ScrollView className="flex-1 bg-white px-5">
       <View className="justify-center items-center mt-8">
         <Image
           source={require("./../assets/images/assosa.jpg")}
           alt="Welcome Image"
-          className="w-3/4 h-40 mb-6 rounded-lg shadow-md"
+          className="w-full h-52 mb-6 rounded-lg shadow-md"
           resizeMode="cover"
         />
       </View>
-
-      {/* Welcome Text */}
-      <Text className="text-4xl font-extrabold text-primary text-center">
+      <Heading size="2xl" className="text-center w-full">
         Welcome to Assosa E-Commerce
-      </Text>
-      <Text className="text-lg text-gray-600 text-center mt-4 font-medium">
+      </Heading>
+      <Text size="sm" className="text-center">
         Discover and shop for your favorite products from the comfort of your
         home.
       </Text>
+      <Card variant="outline" className="mt-5">
+        <Text size="lg">Why Shop With Us?</Text>
+        <Text size="md">- Wide variety of products to choose from.</Text>
+        <Text size="md">- Affordable prices and great deals.</Text>
+        <Text size="md">- Fast and reliable delivery services.</Text>
+      </Card>
 
-      {/* Descriptions */}
-      <Text className="text-lg text-gray-800 mt-8 font-semibold">
-        Why Shop With Us?
-      </Text>
-      <Text className="text-gray-600 mt-2">
-        - Wide variety of products to choose from.
-      </Text>
-      <Text className="text-gray-600 mt-1">
-        - Affordable prices and great deals.
-      </Text>
-      <Text className="text-gray-600 mt-1">
-        - Fast and reliable delivery services.
-      </Text>
-
-      {/* Cards Section */}
       <View className="mt-8">
-        <Text className="text-lg font-semibold text-gray-800 mb-4">
-          Featured Categories
-        </Text>
-        <View className="flex-row justify-between">
-          <View className="bg-white rounded-lg shadow-md p-4 w-[48%]">
-            <Image
-              source={require("./../assets/images/icon.png")}
-              className="w-full h-20 rounded-md mb-2"
-              resizeMode="cover"
-            />
-            <Text className="text-center font-bold text-gray-800">
-              Electronics
-            </Text>
-          </View>
-          <View className="bg-white rounded-lg shadow-md p-4 w-[48%]">
-            <Image
-              source={require("./../assets/images/logo.jpg")}
-              className="w-full h-20 rounded-md mb-2"
-              resizeMode="cover"
-            />
-            <Text className="text-center font-bold text-gray-800">Fashion</Text>
-          </View>
+        <Text size="xl">Featured Categories</Text>
+        <View className="gap-5">
+          <Card size="md" variant="filled" className="flex-row gap-1 w-full">
+            <View className="w-1/3 bg-white p-2 rounded-md">
+              <Image
+                size="md"
+                source={require("./../assets/images/cloths.jpg")}
+                alt="image"
+                resizeMode="cover"
+                className="w-full"
+              />
+              <Heading size="sm" className="text-center">
+                Cloths
+              </Heading>
+            </View>
+            <View className="w-1/3 bg-white p-2 rounded-md">
+              <Image
+                size="md"
+                source={require("./../assets/images/Accessories.jpg")}
+                alt="image"
+                resizeMode="cover"
+                className="w-full"
+              />
+              <Heading size="sm" className="text-center">
+                Accessorie
+              </Heading>
+            </View>
+            <View className="w-1/3 bg-white p-2 rounded-md">
+              <Image
+                size="md"
+                source={require("./../assets/images/detergentsImg.jpg")}
+                alt="image"
+                resizeMode="cover"
+                className="w-full"
+              />
+              <Heading size="sm" className="text-center">
+                Detergents
+              </Heading>
+            </View>
+          </Card>
+
+          <Card size="md" variant="filled" className="flex-row gap-1 w-full">
+            <View className="w-1/3 bg-white p-2 rounded-md">
+              <Image
+                size="md"
+                source={require("./../assets/images/electronicss.jpg")}
+                alt="image"
+                resizeMode="cover"
+                className="w-full"
+              />
+              <Heading size="sm" className="text-center">
+                Electronics
+              </Heading>
+            </View>
+            <View className="w-1/3 bg-white p-2 rounded-md">
+              <Image
+                size="md"
+                source={require("./../assets/images/foodImg.jpg")}
+                alt="image"
+                resizeMode="cover"
+                className="w-full"
+              />
+              <Heading size="sm" className="text-center">
+                Food
+              </Heading>
+            </View>
+            <View className="w-1/3 bg-white p-2 rounded-md">
+              <Image
+                size="md"
+                source={require("./../assets/images/luxurys.jpg")}
+                alt="image"
+                resizeMode="cover"
+                className="w-full"
+              />
+              <Heading size="sm" className="text-center">
+                Luxury
+              </Heading>
+            </View>
+          </Card>
+
+          <Card size="md" variant="filled" className="flex-row gap-1 w-full">
+            <View className="w-1/3 bg-white p-2 rounded-md">
+              <Image
+                size="md"
+                source={require("./../assets/images/toolss.jpg")}
+                alt="image"
+                resizeMode="cover"
+                className="w-full"
+              />
+              <Heading size="sm" className="text-center">
+                Tools
+              </Heading>
+            </View>
+          </Card>
         </View>
       </View>
 
-      {/* Get Started Button */}
-      <View className="mt-12">
-        <TouchableOpacity
-          className="bg-primary py-4 rounded-lg shadow-md"
-          onPress={() => router.push("/login")}
-        >
-          <Text className="text-white text-center font-bold text-lg">
-            Get Started
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <Button
+        onPress={() => router.push("/login")}
+        variant="solid"
+        className="mt-12 w-full mb-5"
+      >
+        <ButtonText>Get Started</ButtonText>
+      </Button>
     </ScrollView>
   );
 };

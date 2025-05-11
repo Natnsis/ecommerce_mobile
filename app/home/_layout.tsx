@@ -8,7 +8,7 @@ const HomeLayout = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://10.16.202.144:3001/api/logout", {
+      const response = await fetch("http://10.16.203.90:3001/api/logout", {
         method: "POST",
         credentials: "include",
       });
@@ -34,13 +34,10 @@ const HomeLayout = () => {
 
   return (
     <Tabs
-      initialRouteName="home"
+      initialRouteName="index"
       screenOptions={{
         headerRight: () => (
-          <TouchableOpacity
-            onPress={handleLogout} // Call the logout function
-            style={{ marginRight: 16 }}
-          >
+          <TouchableOpacity onPress={handleLogout} style={{ marginRight: 16 }}>
             <Text style={{ color: "red", fontWeight: "bold" }}>Logout</Text>
           </TouchableOpacity>
         ),
@@ -48,8 +45,9 @@ const HomeLayout = () => {
     >
       {/* Home Tab */}
       <Tabs.Screen
-        name="home"
+        name="index"
         options={{
+          headerTitle: "Home",
           tabBarLabel: "Home",
           tabBarIcon: () => <Text>🏠</Text>,
         }}
