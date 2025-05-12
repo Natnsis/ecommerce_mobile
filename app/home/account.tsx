@@ -6,23 +6,13 @@ const AccountTab = () => {
   const [password, setPassword] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  // Dynamically determine the backend URL
-  const getBackendUrl = () => {
-    if (__DEV__) {
-      return "http://localhost:3001"; // Use localhost for development
-    }
-    return "http://10.16.202.144"; // Replace with your production IP
-  };
-
-  const backendUrl = getBackendUrl();
-
   useEffect(() => {
     // Fetch current username from the backend
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`${backendUrl}/api/customers`, {
+        const response = await fetch("http://10.16.203.90:3001/api/customers", {
           method: "GET",
-          credentials: "include", // Include session cookies
+          credentials: "include",
         });
 
         if (!response.ok) {
@@ -30,7 +20,7 @@ const AccountTab = () => {
         }
 
         const data = await response.json();
-        setUsername(data.username); // Set the current username
+        setUsername(data.username);
       } catch (error) {
         console.error("Error fetching user details:", error);
         Alert.alert(
@@ -41,7 +31,7 @@ const AccountTab = () => {
     };
 
     fetchUserDetails();
-  }, [backendUrl]);
+  }, []);
 
   const handleSaveChanges = async () => {
     if (!username || !password) {
@@ -50,19 +40,19 @@ const AccountTab = () => {
     }
 
     try {
-      const response = await fetch(`${backendUrl}/api/customers`, {
+      const response = await fetch("http://10.16.203.90:3001/api/customers", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
-        credentials: "include", // Include session cookies
+        credentials: "include",
       });
 
       if (response.ok) {
         Alert.alert("Success", "Your account details have been updated.");
         setIsEditing(false);
-        setPassword(""); // Clear password field after saving
+        setPassword("");
       } else {
         const data = await response.json();
         Alert.alert("Error", data.error || "Failed to update account details.");

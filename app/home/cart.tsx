@@ -7,20 +7,23 @@ const CartTab = () => {
 
   const fetchCartItems = async () => {
     try {
+      console.log("Fetching from:", "http://10.16.203.90:3001/api/cart"); // 1. URL
       const response = await fetch("http://10.16.203.90:3001/api/cart", {
         method: "GET",
         credentials: "include",
       });
-
+      console.log("Response status:", response.status); // 2. Status
       if (!response.ok) {
+        console.error("Response not OK:", response);
         throw new Error("Failed to fetch cart items");
       }
-
-      const data = await response.json();
-      console.log("Fetched cart items:", data.cartItems);
+      const text = await response.text(); //get raw response
+      console.log("Raw response text:", text); // 3. Raw response
+      const data = JSON.parse(text);
+      console.log("Parsed data:", data); // 4. parsed data
       setCartItems(data.cartItems);
     } catch (error) {
-      console.error("Error fetching cart items:", error);
+      console.error("Fetch error:", error); // 5. Error
       Alert.alert(
         "Error",
         "Unable to fetch cart items. Please try again later."
