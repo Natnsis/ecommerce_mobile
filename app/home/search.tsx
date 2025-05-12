@@ -9,7 +9,7 @@ const SearchTab = () => {
   // Fetch products from the backend
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://10.16.203.90/api/products", {
+      const response = await fetch("http://10.16.203.90:3001/api/products", {
         method: "GET",
       });
 

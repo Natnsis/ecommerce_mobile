@@ -5,22 +5,11 @@ const CartTab = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Dynamically determine the backend URL
-  const getBackendUrl = () => {
-    if (__DEV__) {
-      return "http://localhost:3001"; // Use localhost for development
-    }
-    return "http://10.16.202.144"; // Replace with your production IP
-  };
-
-  const backendUrl = getBackendUrl();
-
-  // Fetch cart items for the specific user
   const fetchCartItems = async () => {
     try {
-      const response = await fetch(`${backendUrl}/api/cart`, {
+      const response = await fetch("http://10.16.203.90:3001/api/cart", {
         method: "GET",
-        credentials: "include", // Include cookies to identify the user session
+        credentials: "include",
       });
 
       if (!response.ok) {
@@ -28,7 +17,7 @@ const CartTab = () => {
       }
 
       const data = await response.json();
-      console.log("Fetched cart items:", data.cartItems); // Debug log
+      console.log("Fetched cart items:", data.cartItems);
       setCartItems(data.cartItems);
     } catch (error) {
       console.error("Error fetching cart items:", error);
@@ -44,6 +33,27 @@ const CartTab = () => {
   useEffect(() => {
     fetchCartItems();
   }, []);
+
+  const getImageSource = (category: string) => {
+    switch (category.toLowerCase()) {
+      case "accessories":
+        return require("./../../assets/images/Accessories.jpg");
+      case "cloths":
+        return require("./../../assets/images/cloths.jpg");
+      case "detergents":
+        return require("./../../assets/images/detergentsImg.jpg");
+      case "electronics":
+        return require("./../../assets/images/electronicss.jpg");
+      case "food":
+        return require("./../../assets/images/foodImg.jpg");
+      case "luxury":
+        return require("./../../assets/images/luxurys.jpg");
+      case "tools":
+        return require("./../../assets/images/toolss.jpg");
+      default:
+        return require("./../../assets/images/assosa.jpg"); // Default image
+    }
+  };
 
   if (loading) {
     return (
@@ -70,9 +80,7 @@ const CartTab = () => {
             <View className="flex-row items-center">
               {/* Product Image */}
               <Image
-                source={{
-                  uri: `${backendUrl}/uploads/${item.image}`,
-                }}
+                source={getImageSource(item.category)}
                 className="w-20 h-20 rounded-lg mr-4"
                 resizeMode="cover"
               />

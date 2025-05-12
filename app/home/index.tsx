@@ -33,7 +33,6 @@ const HomePage = () => {
     }
   };
 
-  // Add product to cart
   const addToCart = async (productId: string | number) => {
     try {
       const response = await fetch("http://10.16.203.90:3001/api/cart", {
