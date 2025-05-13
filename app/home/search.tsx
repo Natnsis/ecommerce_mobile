@@ -1,3 +1,4 @@
+import { Button, ButtonText } from "@/components/ui/button";
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, FlatList, Image, Alert } from "react-native";
 
@@ -5,6 +6,31 @@ const SearchTab = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const addToCart = async (productId: string | number) => {
+    try {
+      const response = await fetch("http://10.16.203.90:3001/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId }),
+      });
+
+      if (response.ok) {
+        Alert.alert("Success", "Product added to cart!");
+      } else {
+        const data = await response.json();
+        Alert.alert("Error", data.error || "Failed to add product to cart.");
+      }
+    } catch (error) {
+      console.error("Add to cart error:", error);
+      Alert.alert(
+        "Error",
+        "Unable to connect to the server. Please try again later."
+      );
+    }
+  };
 
   // Fetch products from the backend
   const fetchProducts = async () => {
@@ -87,7 +113,7 @@ const SearchTab = () => {
         data={filteredProducts}
         keyExtractor={(item) => item.pid.toString()}
         renderItem={({ item }) => (
-          <View className="bg-white p-4 rounded-lg shadow-md mb-4 flex-row items-center">
+          <View className="bg-white p-4 rounded-lg shadow-md mb-4 flex-row items-center justify-between">
             <Image
               source={getImageSource(item.category)}
               className="w-20 h-20 rounded-lg mr-4"
@@ -100,6 +126,10 @@ const SearchTab = () => {
               </Text>
               <Text className="text-primary font-bold">${item.price}</Text>
             </View>
+
+            <Button onPress={() => addToCart(item.pid)}>
+              <ButtonText>Add to Cart</ButtonText>
+            </Button>
           </View>
         )}
         ListEmptyComponent={

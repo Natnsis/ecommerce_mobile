@@ -5,25 +5,23 @@ const CartTab = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetch cart items for the specific user
   const fetchCartItems = async () => {
     try {
-      console.log("Fetching from:", "http://10.16.203.90:3001/api/cart"); // 1. URL
       const response = await fetch("http://10.16.203.90:3001/api/cart", {
         method: "GET",
         credentials: "include",
       });
-      console.log("Response status:", response.status); // 2. Status
+
       if (!response.ok) {
-        console.error("Response not OK:", response);
         throw new Error("Failed to fetch cart items");
       }
-      const text = await response.text(); //get raw response
-      console.log("Raw response text:", text); // 3. Raw response
-      const data = JSON.parse(text);
-      console.log("Parsed data:", data); // 4. parsed data
+
+      const data = await response.json();
+      console.log("Fetched cart items:", data.cartItems);
       setCartItems(data.cartItems);
     } catch (error) {
-      console.error("Fetch error:", error); // 5. Error
+      console.error("Error fetching cart items:", error);
       Alert.alert(
         "Error",
         "Unable to fetch cart items. Please try again later."
@@ -36,27 +34,6 @@ const CartTab = () => {
   useEffect(() => {
     fetchCartItems();
   }, []);
-
-  const getImageSource = (category: string) => {
-    switch (category.toLowerCase()) {
-      case "accessories":
-        return require("./../../assets/images/Accessories.jpg");
-      case "cloths":
-        return require("./../../assets/images/cloths.jpg");
-      case "detergents":
-        return require("./../../assets/images/detergentsImg.jpg");
-      case "electronics":
-        return require("./../../assets/images/electronicss.jpg");
-      case "food":
-        return require("./../../assets/images/foodImg.jpg");
-      case "luxury":
-        return require("./../../assets/images/luxurys.jpg");
-      case "tools":
-        return require("./../../assets/images/toolss.jpg");
-      default:
-        return require("./../../assets/images/assosa.jpg"); // Default image
-    }
-  };
 
   if (loading) {
     return (
@@ -83,7 +60,9 @@ const CartTab = () => {
             <View className="flex-row items-center">
               {/* Product Image */}
               <Image
-                source={getImageSource(item.category)}
+                source={{
+                  uri: `http://10.16.202.144:3001/uploads/${item.image}`,
+                }}
                 className="w-20 h-20 rounded-lg mr-4"
                 resizeMode="cover"
               />
