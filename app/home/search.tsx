@@ -1,6 +1,7 @@
 import { Button, ButtonText } from "@/components/ui/button";
-import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, FlatList, Image, Alert } from "react-native";
+import { Spinner } from "@/components/ui/spinner";
+import React, { useEffect, useState } from "react";
+import { Alert, FlatList, Image, Text, TextInput, View } from "react-native";
 
 const SearchTab = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -86,7 +87,10 @@ const SearchTab = () => {
   if (loading) {
     return (
       <View className="flex-1 justify-center items-center bg-gray-100">
-        <Text className="text-lg text-gray-600">Loading products...</Text>
+        <Spinner size="large" />
+        <Text className="text-lg text-gray-600 w-full text-center">
+          Loading products...
+        </Text>
       </View>
     );
   }

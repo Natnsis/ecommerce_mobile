@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  Alert,
-  TouchableOpacity,
-  Linking,
   ActivityIndicator,
+  Alert,
+  FlatList,
+  Image,
+  Linking,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 const HomePage = () => {
@@ -85,7 +85,7 @@ const HomePage = () => {
 
   const renderProduct = ({ item }) => {
     if (!item.pname || !item.price || !item.category) {
-      return null; // Skip rendering if required fields are missing
+      return null;
     }
 
     return (
@@ -151,7 +151,6 @@ const HomePage = () => {
           </Text>
         </View>
       ) : (
-        // Main Content
         <>
           {/* Welcome Section */}
           <View style={{ marginBottom: 20 }}>

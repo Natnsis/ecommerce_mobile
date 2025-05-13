@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, Image, Alert } from "react-native";
+import { Spinner } from "@/components/ui/spinner";
+import React, { useEffect, useState } from "react";
+import { Alert, FlatList, Image, Text, View } from "react-native";
 
 const CartTab = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch cart items for the specific user
   const fetchCartItems = async () => {
     try {
       const response = await fetch("http://10.16.203.90:3001/api/cart", {
@@ -35,10 +35,31 @@ const CartTab = () => {
     fetchCartItems();
   }, []);
 
+  const getImageSource = (category: string) => {
+    switch (category.toLowerCase()) {
+      case "accessories":
+        return require("./../../assets/images/Accessories.jpg");
+      case "cloths":
+        return require("./../../assets/images/cloths.jpg");
+      case "detergents":
+        return require("./../../assets/images/detergentsImg.jpg");
+      case "electronics":
+        return require("./../../assets/images/electronicss.jpg");
+      case "food":
+        return require("./../../assets/images/foodImg.jpg");
+      case "luxury":
+        return require("./../../assets/images/luxurys.jpg");
+      case "tools":
+        return require("./../../assets/images/toolss.jpg");
+      default:
+        return require("./../../assets/images/assosa.jpg"); // Default image
+    }
+  };
+
   if (loading) {
     return (
       <View className="flex-1 justify-center items-center bg-gray-100">
-        <Text className="text-lg text-gray-600">Loading cart items...</Text>
+        <Spinner size="large" />
       </View>
     );
   }
@@ -60,9 +81,7 @@ const CartTab = () => {
             <View className="flex-row items-center">
               {/* Product Image */}
               <Image
-                source={{
-                  uri: `http://10.16.202.144:3001/uploads/${item.image}`,
-                }}
+                source={getImageSource(item.category)}
                 className="w-20 h-20 rounded-lg mr-4"
                 resizeMode="cover"
               />

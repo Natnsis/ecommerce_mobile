@@ -7,23 +7,19 @@ const AccountTab = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // Fetch current username from the backend
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(
-          "http://10.16.202.144:3001/api/customers",
-          {
-            method: "GET",
-            credentials: "include", // Include session cookies
-          }
-        );
+        const response = await fetch("http://10.16.203.90:3001/api/customers", {
+          method: "GET",
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch user details");
         }
 
         const data = await response.json();
-        setUsername(data.username); // Set the current username
+        setUsername(data.username);
       } catch (error) {
         console.error("Error fetching user details:", error);
         Alert.alert(
@@ -43,19 +39,19 @@ const AccountTab = () => {
     }
 
     try {
-      const response = await fetch("http://10.16.202.144:3001/api/customers", {
+      const response = await fetch("http://10.16.203.90:3001/api/customers", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
-        credentials: "include", // Include session cookies
+        credentials: "include",
       });
 
       if (response.ok) {
         Alert.alert("Success", "Your account details have been updated.");
         setIsEditing(false);
-        setPassword(""); // Clear password field after saving
+        setPassword("");
       } else {
         const data = await response.json();
         Alert.alert("Error", data.error || "Failed to update account details.");
@@ -71,7 +67,7 @@ const AccountTab = () => {
 
   const handleCancel = () => {
     setIsEditing(false);
-    setPassword(""); // Clear password field
+    setPassword("");
   };
 
   return (
