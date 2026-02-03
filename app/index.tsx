@@ -1,77 +1,33 @@
-import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/ui/icon';
-import { Text } from '@/components/ui/text';
-import { Link, Stack } from 'expo-router';
-import { MoonStarIcon, StarIcon, SunIcon } from 'lucide-react-native';
-import { useColorScheme } from 'nativewind';
-import * as React from 'react';
-import { Image, type ImageStyle, View } from 'react-native';
+import { SafeAreaProvider } from "react-native-safe-area-context"
+import { ImageBackground, Dimensions, View } from "react-native"
+import { Text } from "@/components/ui/text";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
+import { ChevronRight } from 'lucide-react-native';
 
-const LOGO = {
-  light: require('@/assets/images/react-native-reusables-light.png'),
-  dark: require('@/assets/images/react-native-reusables-dark.png'),
-};
-
-const SCREEN_OPTIONS = {
-  title: 'React Native Reusables',
-  headerTransparent: true,
-  headerRight: () => <ThemeToggle />,
-};
-
-const IMAGE_STYLE: ImageStyle = {
-  height: 76,
-  width: 76,
-};
-
-export default function Screen() {
-  const { colorScheme } = useColorScheme();
-
+const index = () => {
+  const { height } = Dimensions.get('window');
   return (
-    <>
-      <Stack.Screen options={SCREEN_OPTIONS} />
-      <View className="flex-1 items-center justify-center gap-8 p-4">
-        <Image source={LOGO[colorScheme ?? 'light']} style={IMAGE_STYLE} resizeMode="contain" />
-        <View className="gap-2 p-4">
-          <Text className="ios:text-foreground font-mono text-sm text-muted-foreground">
-            1. Edit <Text variant="code">app/index.tsx</Text> to get started.
+    <SafeAreaProvider>
+      <ImageBackground
+        source={require('@/assets/images/landing.png')}
+        style={{ width: '100%', height: height }}
+      >
+        <View className="w-full h-full flex flex-col justify-end p-5 gap-2">
+          <Text variant="h1" className="text-white">Shop Smart. Live Better.</Text>
+          <Text
+            variant="p"
+            className="text-sm text-white text-center px-10">
+            Discover the latest products at unbeatable prices. From everyday essentials to exclusive finds, everything you love is just a tap away.
           </Text>
-          <Text className="ios:text-foreground font-mono text-sm text-muted-foreground">
-            2. Save to see your changes instantly.
-          </Text>
+          <Button className="rounded-full">
+            <Icon as={ChevronRight} className="text-primary-foreground" />
+            <Text>Get Started</Text>
+          </Button>
         </View>
-        <View className="flex-row gap-2">
-          <Link href="https://reactnativereusables.com" asChild>
-            <Button>
-              <Text>Browse the Docs</Text>
-            </Button>
-          </Link>
-          <Link href="https://github.com/founded-labs/react-native-reusables" asChild>
-            <Button variant="ghost">
-              <Text>Star the Repo</Text>
-              <Icon as={StarIcon} />
-            </Button>
-          </Link>
-        </View>
-      </View>
-    </>
-  );
+      </ImageBackground>
+    </SafeAreaProvider>
+  )
 }
 
-const THEME_ICONS = {
-  light: SunIcon,
-  dark: MoonStarIcon,
-};
-
-function ThemeToggle() {
-  const { colorScheme, toggleColorScheme } = useColorScheme();
-
-  return (
-    <Button
-      onPressIn={toggleColorScheme}
-      size="icon"
-      variant="ghost"
-      className="ios:size-9 rounded-full web:mx-4">
-      <Icon as={THEME_ICONS[colorScheme ?? 'light']} className="size-5" />
-    </Button>
-  );
-}
+export default index
