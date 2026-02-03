@@ -4,11 +4,9 @@ import { Text } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { ChevronRight } from 'lucide-react-native';
-import { useRouter } from "expo-router";
 
 const index = () => {
   const { height } = Dimensions.get('window');
-  const router = useRouter()
   return (
     <SafeAreaProvider>
       <ImageBackground
@@ -24,10 +22,7 @@ const index = () => {
             From everyday essentials to exclusive finds,
             everything you love is just a tap away.
           </Text>
-          <Button
-            className="rounded-full"
-            onPress={() => router.push("/login")}
-          >
+          <Button className="rounded-full">
             <Icon as={ChevronRight} className="text-primary-foreground" />
             <Text>Get Started</Text>
           </Button>
