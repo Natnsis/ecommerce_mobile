@@ -26,6 +26,7 @@ const Login = () => {
         >
           <Icon as={ArrowLeft} />
         </Button>
+
         <View className="flex-row justify-center">
           <Image
             source={require("@/assets/images/gebeya-logo.png")}
@@ -38,13 +39,13 @@ const Login = () => {
             Welcome Back
           </Text>
           <View className="flex-row items-center justify-center" >
-            <Text className="text-xs text-center italic" style={{ width: '80%' }}>
+            <Text className="text-xs text-center text-gray-600" style={{ width: '50%' }}>
               Log in to check your cart, track your orders, and discover the latest products
             </Text>
           </View>
-          <View>
-            <Input />
-            <Input />
+          <View className="mt-10 flex-col gap-2 px-10">
+            <Input textContentType="emailAddress" className="rounded-lg" />
+            <Input textContentType="password" className="rounded-lg" />
           </View>
         </View>
       </View >
