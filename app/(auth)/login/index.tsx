@@ -36,12 +36,11 @@ const Login = () => {
             <View className="items-center">
               <Image
                 source={require("@/assets/images/gebeya-logo.png")}
-                style={{ width: 112, height: 112 }} // 112px = 28 * 4 (w-28 equivalent)
+                style={{ width: 112, height: 112 }}
                 resizeMode="contain"
               />
             </View>
 
-            {/* Welcome text */}
             <View className="mb-10 items-center">
               <Text className="text-3xl font-bold text-foreground text-center mb-3">
                 Welcome Back
@@ -51,7 +50,6 @@ const Login = () => {
               </Text>
             </View>
 
-            {/* Form fields */}
             <View className="gap-5 mb-7">
               <View className="gap-2">
                 <Text className="text-sm font-medium text-foreground">Email</Text>
@@ -73,7 +71,10 @@ const Login = () => {
               </View>
             </View>
 
-            <Button className="h-14 rounded-xl bg-primary mb-8">
+            <Button
+              className="h-14 rounded-xl bg-primary mb-8"
+              onPress={() => router.push("/tabs/home")}
+            >
               <Text className="text-lg font-semibold text-primary-foreground">
                 Log In
               </Text>
@@ -88,11 +89,11 @@ const Login = () => {
             <Button
               variant="outline"
               className="h-14 rounded-xl flex-row gap-3 border-border mb-6"
-              onPress={() => {/* TODO: Add Google auth */ }}
+              onPress={() => router.push("/")}
             >
               <Image
                 source={require("@/assets/images/google.png")}
-                style={{ width: 20, height: 20 }} // Perfect 20px icon size
+                style={{ width: 20, height: 20 }}
                 resizeMode="contain"
               />
               <Text className="text-base font-medium text-foreground">
