@@ -1,0 +1,87 @@
+export const products = [
+  { id: '1', name: 'Smart LED TV', price: 420, marketPrice: 480, image: require('@/assets/products/ele1.png') },
+  { id: '2', name: 'Modern Sofa', price: 310, marketPrice: 360, image: require('@/assets/products/furn1.png') },
+  { id: '3', name: 'Children Story Book', price: 18, marketPrice: 30, image: require('@/assets/products/book1.png') },
+  { id: '4', name: 'Men Casual Shirt', price: 45, marketPrice: 65, image: require('@/assets/products/cloth1.png') },
+  { id: '5', name: 'Toy Racing Car', price: 35, marketPrice: 50, image: require('@/assets/products/toy1.png') },
+
+  { id: '6', name: 'Wireless Headphones', price: 75, marketPrice: 95, image: require('@/assets/products/ele2.png') },
+  { id: '7', name: 'Wooden Coffee Table', price: 180, marketPrice: 230, image: require('@/assets/products/furn2.png') },
+  { id: '8', name: 'Sports Training Shoes', price: 120, marketPrice: 160, image: require('@/assets/products/sport1.png') },
+  { id: '9', name: 'Medical First Aid Kit', price: 40, marketPrice: 60, image: require('@/assets/products/health1.png') },
+  { id: '10', name: 'Educational Math Book', price: 22, marketPrice: 35, image: require('@/assets/products/book2.png') },
+
+  { id: '11', name: 'Bluetooth Speaker', price: 55, marketPrice: 75, image: require('@/assets/products/ele3.png') },
+  { id: '12', name: 'Women Summer Dress', price: 70, marketPrice: 95, image: require('@/assets/products/cloth2.png') },
+  { id: '13', name: 'Luxury Sedan Car', price: 9200, marketPrice: 9800, image: require('@/assets/products/car1.png') },
+  { id: '14', name: 'Kids Action Toy', price: 30, marketPrice: 45, image: require('@/assets/products/toy2.png') },
+  { id: '15', name: 'Home Workout Dumbbells', price: 85, marketPrice: 110, image: require('@/assets/products/sport2.png') },
+
+  { id: '16', name: 'Office Desk Chair', price: 140, marketPrice: 180, image: require('@/assets/products/furn3.png') },
+  { id: '17', name: 'Digital Camera', price: 350, marketPrice: 420, image: require('@/assets/products/ele4.png') },
+  { id: '18', name: 'Health Vitamin Pack', price: 25, marketPrice: 40, image: require('@/assets/products/health2.png') },
+  { id: '19', name: 'Science Reference Book', price: 32, marketPrice: 48, image: require('@/assets/products/book3.png') },
+  { id: '20', name: 'Men Denim Jacket', price: 95, marketPrice: 130, image: require('@/assets/products/cloth3.png') },
+
+  { id: '21', name: 'Compact City Car', price: 7100, marketPrice: 7800, image: require('@/assets/products/car2.png') },
+  { id: '22', name: 'Electric Kettle', price: 40, marketPrice: 60, image: require('@/assets/products/ele5.png') },
+  { id: '23', name: 'Modern Bookshelf', price: 210, marketPrice: 260, image: require('@/assets/products/furn4.png') },
+  { id: '24', name: 'Yoga Training Mat', price: 28, marketPrice: 45, image: require('@/assets/products/sport3.png') },
+  { id: '25', name: 'Remote Control Toy Car', price: 55, marketPrice: 75, image: require('@/assets/products/toy3.png') },
+
+  { id: '26', name: 'Children Coloring Book', price: 15, marketPrice: 25, image: require('@/assets/products/book4.png') },
+  { id: '27', name: 'Women Handbag', price: 80, marketPrice: 110, image: require('@/assets/products/cloth4.png') },
+  { id: '28', name: 'SUV Family Car', price: 10800, marketPrice: 11500, image: require('@/assets/products/car3.png') },
+  { id: '29', name: 'Smartphone Device', price: 520, marketPrice: 590, image: require('@/assets/products/ele6.png') },
+  { id: '30', name: 'Medical Face Mask Pack', price: 15, marketPrice: 25, image: require('@/assets/products/health3.png') },
+
+  { id: '31', name: 'Wooden Dining Table', price: 520, marketPrice: 600, image: require('@/assets/products/furn5.png') },
+  { id: '32', name: 'Fitness Resistance Bands', price: 35, marketPrice: 55, image: require('@/assets/products/sport4.png') },
+  { id: '33', name: 'Fantasy Novel Book', price: 26, marketPrice: 40, image: require('@/assets/products/book5.png') },
+  { id: '34', name: 'Winter Hoodie', price: 65, marketPrice: 90, image: require('@/assets/products/cloth5.png') },
+  { id: '35', name: 'Toy Building Blocks', price: 42, marketPrice: 60, image: require('@/assets/products/toy4.png') },
+
+  { id: '36', name: 'Gaming Laptop', price: 1250, marketPrice: 1400, image: require('@/assets/products/ele7.png') },
+  { id: '37', name: 'Office Storage Cabinet', price: 260, marketPrice: 320, image: require('@/assets/products/furn6.png') },
+  { id: '38', name: 'Health Thermometer', price: 20, marketPrice: 35, image: require('@/assets/products/health4.png') },
+  { id: '39', name: 'Professional Football', price: 38, marketPrice: 55, image: require('@/assets/products/sport5.png') },
+  { id: '40', name: 'Classic Literature Book', price: 24, marketPrice: 38, image: require('@/assets/products/book6.png') },
+
+  { id: '41', name: 'Women Sneakers', price: 85, marketPrice: 120, image: require('@/assets/products/cloth6.png') },
+  { id: '42', name: 'Electric Scooter', price: 640, marketPrice: 720, image: require('@/assets/products/ele8.png') },
+  { id: '43', name: 'Pickup Utility Car', price: 9800, marketPrice: 10500, image: require('@/assets/products/car4.png') },
+  { id: '44', name: 'Children Puzzle Toy', price: 22, marketPrice: 35, image: require('@/assets/products/toy5.png') },
+  { id: '45', name: 'Adjustable Bed Frame', price: 430, marketPrice: 500, image: require('@/assets/products/furn7.png') },
+
+  { id: '46', name: 'Smart Watch', price: 160, marketPrice: 210, image: require('@/assets/products/ele9.png') },
+  { id: '47', name: 'Gym Weight Plates', price: 140, marketPrice: 180, image: require('@/assets/products/sport6.png') },
+  { id: '48', name: 'Health Blood Pressure Monitor', price: 65, marketPrice: 90, image: require('@/assets/products/health5.png') },
+  { id: '49', name: 'Business Strategy Book', price: 34, marketPrice: 50, image: require('@/assets/products/book7.png') },
+  { id: '50', name: 'Formal Office Pants', price: 55, marketPrice: 80, image: require('@/assets/products/cloth7.png') },
+
+  { id: '51', name: 'Luxury Sports Car', price: 14500, marketPrice: 15500, image: require('@/assets/products/car5.png') },
+  { id: '52', name: 'Electric Rice Cooker', price: 75, marketPrice: 105, image: require('@/assets/products/ele10.png') },
+  { id: '53', name: 'Outdoor Camping Tent', price: 190, marketPrice: 240, image: require('@/assets/products/sport7.png') },
+  { id: '54', name: 'Kids Plush Toy', price: 28, marketPrice: 45, image: require('@/assets/products/toy6.png') },
+  { id: '55', name: 'Wardrobe Closet', price: 380, marketPrice: 450, image: require('@/assets/products/furn8.png') },
+
+  { id: '56', name: 'Health Supplement Bottle', price: 30, marketPrice: 50, image: require('@/assets/products/health6.png') },
+  { id: '57', name: 'Adventure Story Book', price: 29, marketPrice: 45, image: require('@/assets/products/book8.png') },
+  { id: '58', name: 'Casual T-Shirt', price: 28, marketPrice: 45, image: require('@/assets/products/cloth8.png') },
+  { id: '59', name: 'Family Van Car', price: 8800, marketPrice: 9500, image: require('@/assets/products/car6.png') },
+  { id: '60', name: 'Office Study Desk', price: 240, marketPrice: 300, image: require('@/assets/products/furn9.png') },
+
+  { id: '61', name: 'Basketball Training Set', price: 95, marketPrice: 130, image: require('@/assets/products/sport8.png') },
+  { id: '62', name: 'Kids Educational Toy', price: 40, marketPrice: 60, image: require('@/assets/products/toy7.png') },
+  { id: '63', name: 'Classic Wrist Watch', price: 120, marketPrice: 160, image: require('@/assets/products/ele10.png') },
+  { id: '64', name: 'Home Shoe Rack', price: 110, marketPrice: 150, image: require('@/assets/products/furn10.png') },
+  { id: '65', name: 'Winter Jacket', price: 130, marketPrice: 170, image: require('@/assets/products/cloth9.png') },
+
+  { id: '66', name: 'City Hatchback Car', price: 6900, marketPrice: 7500, image: require('@/assets/products/car7.png') },
+  { id: '67', name: 'Running Fitness Tracker', price: 95, marketPrice: 130, image: require('@/assets/products/sport9.png') },
+  { id: '68', name: 'Health Digital Scale', price: 48, marketPrice: 70, image: require('@/assets/products/health7.png') },
+  { id: '69', name: 'Smart Casual Shoes', price: 90, marketPrice: 125, image: require('@/assets/products/cloth10.png') },
+  { id: '70', name: 'Electric Family Car', price: 11200, marketPrice: 12000, image: require('@/assets/products/car8.png') },
+
+  { id: '71', name: 'Professional Sports Kit', price: 160, marketPrice: 210, image: require('@/assets/products/sport10.png') },
+];

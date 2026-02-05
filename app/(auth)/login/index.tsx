@@ -11,7 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 
 const Login = () => {
   const router = useRouter()
-
+  //TODO: fix style and background best for dark and light modes
   return (
     <SafeAreaView style={{ backgroundColor: "#be2f1f", height: '100%' }}>
       <View className="px-4 pt-2">
@@ -38,7 +38,7 @@ const Login = () => {
           <Text className="text-2xl w-[100%] text-center">
             Welcome Back
           </Text>
-          <Text className="text-xs text-center w-[70%] text-gray-300">
+          <Text className="text-xs text-center w-[70%] dark:text-gray-300">
             Log in to check your cart, track orders, and discover the latest products
           </Text>
         </View>
@@ -69,8 +69,9 @@ const Login = () => {
 
           <Button
             onPress={() => router.push("/tabs/home")}
+            className="mt-1"
           >
-            <Text className="text-xs font-bold">
+            <Text>
               Login
             </Text>
           </Button>
@@ -78,7 +79,7 @@ const Login = () => {
 
         <View className="flex-row items-center px-5 my-5">
           <Separator className="flex-1 bg-border" />
-          <Text className="mx-4 text-muted-foreground text-sm">or </Text>
+          <Text className="mx-4 text-sm">or </Text>
           <Separator className="flex-1 bg-border" />
         </View>
 
