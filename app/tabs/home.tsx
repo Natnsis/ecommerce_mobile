@@ -1,11 +1,17 @@
+import { SafeAreaView } from "react-native-safe-area-context"
 import { View, Text } from "react-native"
 
-const home = () => {
+const Home = () => {
   return (
-    <View>
-      <Text>hehe</Text>
-    </View>
+    <SafeAreaView>
+      <View className="h-screen">
+        <View className="flex-row justify-between">
+          <Text>hehe</Text>
+          <Text>hehe</Text>
+        </View>
+      </View>
+    </SafeAreaView>
   )
 }
 
-export default home
+export default Home
