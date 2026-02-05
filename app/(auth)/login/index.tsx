@@ -2,9 +2,10 @@ import { Button } from "@/components/ui/button"
 import { Text } from "@/components/ui/text"
 import { Icon } from "@/components/ui/icon"
 import { ArrowLeft } from "lucide-react-native"
-import { View, Image, ScrollView } from "react-native"
+import { View, Image } from "react-native"
 import { useRouter } from "expo-router"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { SafeAreaView } from "react-native-safe-area-context"
 
@@ -42,16 +43,24 @@ const Login = () => {
           </Text>
         </View>
 
-        <View className="flex-col gap-2 px-5 mt-5">
-          <View className="">
+        <View className="flex-col gap-2 px-5">
+          <View className="gap-1">
+            <Label htmlFor="email">
+              Email
+            </Label>
             <Input
               textContentType="emailAddress"
               placeholder="enter your email"
+              id="email"
             />
           </View>
 
-          <View className="">
+          <View className="gap-1">
+            <Label htmlFor="password">
+              Password
+            </Label>
             <Input
+              id="password"
               textContentType="password"
               secureTextEntry
               placeholder="••••••••"
@@ -89,7 +98,7 @@ const Login = () => {
           </Button>
         </View>
         <View className="flex-row justify-center">
-          <Text className="text-sm">
+          <Text className="text-sm w-[100%] text-center">
             Don't have an account?{" "}
             <Text
               className="text-primary font-medium underline text-sm"
