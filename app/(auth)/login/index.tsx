@@ -12,7 +12,7 @@ const Login = () => {
   const router = useRouter()
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: "#be2f1f", height: '100%' }}>
       <View className="px-4 pt-2">
         <Button
           size="icon"
@@ -24,8 +24,8 @@ const Login = () => {
         </Button>
       </View>
 
-      <View >
-        <View>
+      <View className="flex-col gap-2">
+        <View className="flex-row justify-center">
           <Image
             source={require("@/assets/images/gebeya-logo.png")}
             style={{ width: 112, height: 112 }}
@@ -33,67 +33,66 @@ const Login = () => {
           />
         </View>
 
-        <View>
-          <Text className="text-3xl font-bold text-foreground text-center mb-3">
+        <View className="w-[100%] flex-col items-center">
+          <Text className="text-2xl w-[100%] text-center">
             Welcome Back
           </Text>
-          <Text className="text-base text-muted-foreground text-center leading-relaxed max-w-sm">
+          <Text className="text-xs text-center w-[70%] text-gray-300">
             Log in to check your cart, track orders, and discover the latest products
           </Text>
         </View>
 
-        <View>
-          <View>
-            <Text>Email</Text>
+        <View className="flex-col gap-2 px-5 mt-5">
+          <View className="">
             <Input
               textContentType="emailAddress"
-              placeholder="your@email.com"
+              placeholder="enter your email"
             />
           </View>
 
-          <View className="gap-2">
-            <Text>Password</Text>
+          <View className="">
             <Input
               textContentType="password"
               secureTextEntry
               placeholder="••••••••"
             />
           </View>
+
+          <Button
+            onPress={() => router.push("/tabs/home")}
+          >
+            <Text className="text-xs font-bold">
+              Login
+            </Text>
+          </Button>
         </View>
 
-        <Button
-          onPress={() => router.push("/tabs/home")}
-        >
-          <Text>
-            Log In
-          </Text>
-        </Button>
-
-        <View className="flex-row items-center my-6">
+        <View className="flex-row items-center px-5 my-5">
           <Separator className="flex-1 bg-border" />
           <Text className="mx-4 text-muted-foreground text-sm">or </Text>
           <Separator className="flex-1 bg-border" />
         </View>
 
-        <Button
-          variant="outline"
-          onPress={() => router.push("/")}
-        >
-          <Image
-            source={require("@/assets/images/google.png")}
-            style={{ width: 20, height: 20 }}
-            resizeMode="contain"
-          />
-          <Text>
-            Sign in with Google
-          </Text>
-        </Button>
-
-        <View >
-          <Text>
+        <View className="px-5">
+          <Button
+            variant="outline"
+            onPress={() => router.push("/")}
+          >
+            <Image
+              source={require("@/assets/images/google.png")}
+              style={{ width: 20, height: 20 }}
+              resizeMode="contain"
+            />
+            <Text>
+              Sign in with Google
+            </Text>
+          </Button>
+        </View>
+        <View className="flex-row justify-center">
+          <Text className="text-sm">
             Don't have an account?{" "}
             <Text
-              className="text-primary font-medium underline"
+              className="text-primary font-medium underline text-sm"
               onPress={() => router.push("/register")}
             >
               Sign up
