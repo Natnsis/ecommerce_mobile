@@ -13,7 +13,7 @@ const Login = () => {
   const router = useRouter()
 
   return (
-    <SafeAreaView style={{ backgroundColor: "#be2f1f", height: '100%' }}>
+    <SafeAreaView style={{ height: '100%' }}>
       <View className="px-4 pt-2">
         <Button
           size="icon"
@@ -38,7 +38,7 @@ const Login = () => {
           <Text className="text-2xl w-[90%] text-center">
             Join us and start Shopping
           </Text>
-          <Text className="text-xs text-center w-[70%] text-gray-300">
+          <Text className="text-xs text-center w-[70%] text-gray-400">
             Create an account to track your orders, and get exclusive early access to our seasonal drops.
           </Text>
         </View>
