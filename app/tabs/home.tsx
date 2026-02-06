@@ -30,10 +30,10 @@ const Home = () => {
       {/* search part */}
       <View className="px-5 mt-5 flex-row w-[100%] items-center gap-2 justify-center">
         <Input
-          className="w-[80%] rounded-full"
+          className="w-[80%] rounded-full border-[#E7000A]"
           placeholder="search here"
         />
-        <Button size="icon">
+        <Button size="icon" className="bg-[#E7000A]">
           <Icon as={Search} className="text-primary-foreground" />
         </Button>
       </View>
@@ -45,8 +45,7 @@ const Home = () => {
           <View className="pr-1">
             <Button
               size="sm"
-              className="rounded-full h-[1/2]"
-              variant="outline">
+              className="rounded-full h-[1/2] bg-[#E7000A]">
               <Text className="xs">
                 All
               </Text>
@@ -135,7 +134,6 @@ const Home = () => {
         </ScrollView>
       </View>
 
-      {/* product part */}
       <View className="mt-5">
         <FlatList
           data={products}
@@ -144,19 +142,19 @@ const Home = () => {
           columnWrapperStyle={{ gap: 12 }}
           contentContainerStyle={{ padding: 12 }}
           renderItem={({ item }) => (
-            <View className="flex-1 bg-white rounded-xl p-3 mb-3">
+            <View className="flex-1 rounded-xl p-3 mb-3 border dark:border-white rounded-lg">
               <Image
                 source={item.image}
                 className="w-full h-32 rounded-lg"
                 resizeMode="contain"
               />
 
-              <Text className="mt-2 font-semibold text-sm">
+              <Text className="mt-2 font-semibold text-sm text-[#E7000A]">
                 {item.name}
               </Text>
 
               <View className="flex-row items-center gap-2 mt-1">
-                <Text className="text-indigo-600 font-bold">
+                <Text className="font-bold">
                   ${item.price}
                 </Text>
                 <Text className="text-gray-400 line-through text-xs">
