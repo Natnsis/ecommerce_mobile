@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context"
-import { ScrollView, View, FlatList, Image } from "react-native"
+import { ScrollView, View, FlatList, Image, Pressable, Dimensions } from "react-native"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Text } from '@/components/ui/text';
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -8,7 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Search } from "lucide-react-native";
 import { products } from "@/assets/constants/products";
+import { useRouter } from "expo-router";
+
+const screenWidth = Dimensions.get("window").width;
+const numColumns = 2;
+const spacing = 12;
+
 const Home = () => {
+  const itemWidth = (screenWidth - spacing * (numColumns + 1)) / numColumns;
+  const router = useRouter()
+
   return (
     <SafeAreaView style={{ height: '100%' }}>
       <View className="pt-3 flex-row justify-between px-3">
@@ -138,36 +147,33 @@ const Home = () => {
         <FlatList
           data={products}
           keyExtractor={(item) => item.id}
-          numColumns={2}
-          columnWrapperStyle={{ gap: 12 }}
-          contentContainerStyle={{ padding: 12 }}
+          numColumns={numColumns}
+          contentContainerStyle={{ padding: spacing }}
+          columnWrapperStyle={{ justifyContent: "space-between", marginBottom: spacing }}
           renderItem={({ item }) => (
-            <View className="flex-1 rounded-xl p-3 mb-3 border dark:border-white rounded-lg">
+            <Pressable
+              onPress={() => router.push(`/detail/${item.id}`)}
+              className="rounded-xl p-3 border dark:border-white"
+              style={{ width: itemWidth }}
+            >
               <Image
                 source={item.image}
                 className="w-full h-32 rounded-lg"
                 resizeMode="contain"
               />
-
               <Text className="mt-2 font-semibold text-sm text-[#E7000A]">
                 {item.name}
               </Text>
-
               <View className="flex-row items-center gap-2 mt-1">
-                <Text className="font-bold">
-                  ${item.price}
-                </Text>
+                <Text className="font-bold">${item.price}</Text>
                 <Text className="text-gray-400 line-through text-xs">
                   ${item.marketPrice}
                 </Text>
               </View>
-            </View>
+            </Pressable>
           )}
         />
       </View>
-      {/* product part */}
-      {/* product part */}
-      {/* product part */}
     </SafeAreaView >
   )
 }
