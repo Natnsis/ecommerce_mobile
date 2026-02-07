@@ -1,10 +1,13 @@
-import { View, Text } from "react-native"
+import { SafeAreaView, View, Text } from "react-native"
 
 const cart = () => {
   return (
-    <View>
-      <Text>hehe</Text>
-    </View>
+    <SafeAreaView>
+      <View>
+
+        <Text>hehe</Text>
+      </View>
+    </SafeAreaView>
   )
 }
 

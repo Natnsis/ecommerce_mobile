@@ -41,7 +41,7 @@ const Login = () => {
           </View>
 
           <View className="w-[100%] flex-col items-center">
-            <Text className="text-2xl w-[100%] text-center">
+            <Text className="text-2xl w-[100%] text-center dark:text-black text-white">
               Welcome Back
             </Text>
             <Text className="text-xs text-center w-[70%] dark:text-gray-300 text-gray-400">
@@ -51,7 +51,7 @@ const Login = () => {
 
           <View className="flex-col gap-2 px-5">
             <View className="gap-1">
-              <Label htmlFor="email">
+              <Label htmlFor="email" className="dark:text-black text-white">
                 Email
               </Label>
               <Input
@@ -62,7 +62,7 @@ const Login = () => {
             </View>
 
             <View className="gap-1">
-              <Label htmlFor="password">
+              <Label htmlFor="password" className="dark:text-black text-white ">
                 Password
               </Label>
               <Input
@@ -105,10 +105,10 @@ const Login = () => {
             </Button>
           </View>
           <View className="flex-row justify-center">
-            <Text className="text-xs w-[100%] text-center">
+            <Text className="text-xs w-[100%] text-center dark:text-black text-white">
               Don't have an account?{" "}
               <Text
-                className="text-primary font-medium underline text-xs"
+                className="text-primary font-medium underline text-xs dark:text-black text-white"
                 onPress={() => router.push("/register")}
               >
                 Sign up
