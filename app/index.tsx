@@ -1,5 +1,5 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ImageBackground, Dimensions, View } from 'react-native';
+import { ImageBackground, View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
@@ -21,7 +21,9 @@ const index = () => {
             Discover the latest products at unbeatable prices. From everyday essentials to exclusive
             finds, everything you love is just a tap away.
           </Text>
-          <Button className="rounded-full" onPress={() => router.push('/login')}>
+          <Button
+            className="rounded-full mb-5"
+            onPress={() => router.push('/login')}>
             <Icon as={ChevronRight} className="text-primary-foreground" />
             <Text>Get Started</Text>
           </Button>

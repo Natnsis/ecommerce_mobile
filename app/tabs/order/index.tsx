@@ -1,7 +1,6 @@
-
 import { View, Text } from "react-native"
 
-const order = () => {
+const cart = () => {
   return (
     <View>
       <Text>hehe</Text>
@@ -9,5 +8,4 @@ const order = () => {
   )
 }
 
-export default order
-
+export default cart

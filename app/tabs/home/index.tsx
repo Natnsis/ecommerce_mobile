@@ -9,6 +9,7 @@ import { Icon } from "@/components/ui/icon";
 import { Search } from "lucide-react-native";
 import { products } from "@/assets/constants/products";
 import { useRouter } from "expo-router";
+import { Separator } from "@/components/ui/separator";
 
 const screenWidth = Dimensions.get("window").width;
 const numColumns = 2;
@@ -152,7 +153,7 @@ const Home = () => {
           columnWrapperStyle={{ justifyContent: "space-between", marginBottom: spacing }}
           renderItem={({ item }) => (
             <Pressable
-              onPress={() => router.push(`/detail/${item.id}`)}
+              onPress={() => router.push(`/`)}
               className="rounded-xl p-3 border dark:border-white"
               style={{ width: itemWidth }}
             >
