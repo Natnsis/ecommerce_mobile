@@ -1,15 +1,13 @@
 import { SafeAreaView } from "react-native-safe-area-context"
 import { ScrollView, View, FlatList, Image, Pressable, Dimensions } from "react-native"
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Text } from '@/components/ui/text';
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Search } from "lucide-react-native";
 import { products } from "@/assets/constants/products";
 import { useRouter } from "expo-router";
-import { Separator } from "@/components/ui/separator";
+import Header from "@/components/Header";
 
 const screenWidth = Dimensions.get("window").width;
 const numColumns = 2;
@@ -21,23 +19,8 @@ const Home = () => {
 
   return (
     <SafeAreaView style={{ height: '100%' }}>
-      <View className="pt-3 flex-row justify-between px-3">
-        <Avatar alt="Zach Nugent's Avatar" className="w-[15%]">
-          <AvatarImage source={{ uri: 'https://github.com/mrzachnugent.png' }} />
-          <AvatarFallback>
-            <Text>ZN</Text>
-          </AvatarFallback>
-        </Avatar>
-        <View className="w-[70%]">
-          <Text className="text-center text-sm">Hello, Natnael</Text>
-          <Text className="text-center text-xs text-gray-400">Today 25,Nov</Text>
-        </View>
-        <View className="w-15%">
-          <ThemeToggle />
-        </View>
-      </View>
+      <Header />
 
-      {/* search part */}
       <View className="px-5 mt-5 flex-row w-[100%] items-center gap-2 justify-center">
         <Input
           className="w-[80%] rounded-full border-[#E7000A]"
@@ -48,7 +31,6 @@ const Home = () => {
         </Button>
       </View>
 
-      {/* filter part */}
       <View className="mt-5 px-3 gap-2">
         <Text className="text-xs">Filter by:</Text>
         <ScrollView horizontal >
